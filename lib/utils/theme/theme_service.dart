@@ -16,6 +16,7 @@ class ThemeService {
     cardColor: ColorManger.instance.greyColor.withOpacity(0.1),
     hintColor: ColorManger.instance.blackColor,
     focusColor: ColorManger.instance.whiteColor,
+    indicatorColor: ColorManger.instance.primaryColor,
     textSelectionTheme: TextSelectionThemeData(
         cursorColor: ColorManger.instance.primaryColor,
         selectionColor: ColorManger.instance.primaryColor,
@@ -45,6 +46,7 @@ class ThemeService {
     hoverColor: ColorManger.instance.textFiledColor,
     hintColor: ColorManger.instance.whiteColor,
     focusColor: ColorManger.instance.whiteColor,
+    indicatorColor: ColorManger.instance.whiteColor,
     textSelectionTheme: TextSelectionThemeData(
         cursorColor: ColorManger.instance.primaryColor,
         selectionColor: ColorManger.instance.primaryColor,

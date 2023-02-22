@@ -1,6 +1,5 @@
 
 import 'dart:async';
-
 import 'package:chatgpt/feature/core/theme/color/color_manger.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +22,7 @@ class AppWidget extends StatelessWidget {
       statusBarColor: ColorManger.instance.transColor,
       systemNavigationBarColor: ColorManger.instance.primaryColor,
     );
-    Timer.periodic(const Duration(days: 9) , (Timer t ) => NotificationFeature.getInstance.sendMessageToToken(title: "ChatGPT AI", body: 'Hello ${FirebaseAuth.instance.currentUser?.displayName ?? ''}, I\'m ChatGPT How I Can Help You!' ));
+    Timer.periodic(const Duration(days: 8) , (Timer t ) => NotificationFeature.getInstance.sendMessageToToken(title: "ChatGPT AI", body: 'Hello ${FirebaseAuth.instance.currentUser?.displayName ?? ''}, I\'m ChatGPT How I Can Help You!' ));
     return ScreenUtilInit(
       builder: (context , child) => GetMaterialApp(
         enableLog: true,

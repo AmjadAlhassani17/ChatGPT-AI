@@ -75,48 +75,57 @@ class AuthViewModel extends GetxController {
 
   // sign in by google
   void googleSignInMethod() async {
-    startLoading();
-    final GoogleSignInAccount? googleSignInAccount = await _googleSignIn
-        .signIn()
-        .catchError((onError) => Logger().i(onError));
+    try {
+      startLoading();
+      final GoogleSignInAccount? googleSignInAccount = await _googleSignIn
+          .signIn()
+          .catchError((onError) => Logger().i(onError));
 
-    if (googleSignInAccount == null) return null;
+      if (googleSignInAccount == null) return null;
 
-    final GoogleSignInAuthentication googleAuth =
-        await googleSignInAccount.authentication;
+      final GoogleSignInAuthentication googleAuth =
+          await googleSignInAccount.authentication;
 
-    final AuthCredential credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth.accessToken,
-      idToken: googleAuth.idToken,
-    );
+      final AuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
 
-    await _auth.signInWithCredential(credential).then((user) async {
-      saveUser(user);
-      Get.offAll(() => const ControlView());
+      await _auth.signInWithCredential(credential).then((user) async {
+        saveUser(user);
+        Get.offAll(() => const ControlView());
+        endLoading();
+      }).catchError((onError) => Logger().i(onError));
+    } catch (e) {
+      Utils.instance.snackError(title: 'Error login account', body: '$e');
       endLoading();
-    });
+    }
   }
 
   // sign in Facebook
   Future<void> signInWithFacebook() async {
-    startLoading();
-    // Trigger the sign-in flow
-    final LoginResult loginResult = await FacebookAuth.instance.login();
-    if (loginResult.status == LoginStatus.success) {
-      // Create a credential from the access token
-      final OAuthCredential facebookAuthCredential =
-          FacebookAuthProvider.credential(loginResult.accessToken!.token);
+    try {
+      startLoading();
+      // Trigger the sign-in flow
+      final LoginResult loginResult = await FacebookAuth.instance.login();
+      if (loginResult.status == LoginStatus.success) {
+        // Create a credential from the access token
+        final OAuthCredential facebookAuthCredential =
+            FacebookAuthProvider.credential(loginResult.accessToken!.token);
 
-      // Once signed in, return the UserCredential
-      return FirebaseAuth.instance
-          .signInWithCredential(facebookAuthCredential)
-          .then((user) async {
-        saveUser(user);
-        Get.offAll(() => const ControlView());
-        endLoading();
-      });
+        // Once signed in, return the UserCredential
+        return FirebaseAuth.instance
+            .signInWithCredential(facebookAuthCredential)
+            .then((user) async {
+          saveUser(user);
+          Get.offAll(() => const ControlView());
+          endLoading();
+        }).catchError((onError) => Logger().i(onError));
+      }
+    } catch (e) {
+      Utils.instance.snackError(title: 'Error login account', body: '$e');
+      endLoading();
     }
-    return;
   }
 
   void signInWithEmailAndPassword() async {

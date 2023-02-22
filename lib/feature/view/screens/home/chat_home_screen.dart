@@ -10,7 +10,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:logger/logger.dart';
 import 'package:quds_popup_menu/quds_popup_menu.dart';
@@ -18,6 +17,7 @@ import '../../../core/assets_manger.dart';
 import '../../../core/theme/color/color_manger.dart';
 import '../../../model/chat_model.dart';
 import '../../../view_model/home_view_model/home_view_model.dart';
+import '../../widget/three_size_dot.dart';
 
 class ChatHomeScreen extends StatefulWidget {
   const ChatHomeScreen({Key? key}) : super(key: key);
@@ -231,9 +231,10 @@ class _ChatHomeScreenState extends State<ChatHomeScreen> {
                       )
                     : const ChatEmpty(),
                 if (logic.isTyping) ...[
-                  SpinKitThreeBounce(
-                    size: 18,
-                    color: ColorManger.instance.whiteColor,
+                  ThreeSizeDot(
+                    color_1: Theme.of(context).indicatorColor,
+                    color_2: Theme.of(context).indicatorColor,
+                    color_3: Theme.of(context).indicatorColor,
                   ),
                   SizedBox(
                     height: 10.h,
