@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">ChatGPT</string> 
+    <string name="facebook_app_id">885010526041585</string> 
+    <string name="fb_login_protocol_scheme">fb885010526041585</string>
+    <string name="facebook_client_token">f974b312f75c8ebd26af6705aa535f49</string>
+    
+</resources>
