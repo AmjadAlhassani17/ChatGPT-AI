@@ -74,28 +74,25 @@ class AuthViewModel extends GetxController {
   }
 
   // sign in by google
-  void googleSignInMethod() async {
+  Future<void> googleSignInMethod() async {
     try {
       startLoading();
-      final GoogleSignInAccount? googleSignInAccount = await _googleSignIn
-          .signIn()
-          .catchError((onError) => Logger().i(onError));
+      final GoogleSignInAccount? googleSignInAccount =
+          await _googleSignIn.signIn();
 
-      if (googleSignInAccount == null) return null;
+      final GoogleSignInAuthentication? googleAuth =
+          await googleSignInAccount?.authentication;
 
-      final GoogleSignInAuthentication googleAuth =
-          await googleSignInAccount.authentication;
-
-      final AuthCredential credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth.accessToken,
-        idToken: googleAuth.idToken,
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth?.accessToken,
+        idToken: googleAuth?.idToken,
       );
 
       await _auth.signInWithCredential(credential).then((user) async {
         saveUser(user);
-        Get.offAll(() => const ControlView());
-        endLoading();
-      }).catchError((onError) => Logger().i(onError));
+        Get.offAll(const ControlView());
+      });
+      endLoading();
     } catch (e) {
       Utils.instance.snackError(title: 'Error login account', body: '$e');
       endLoading();

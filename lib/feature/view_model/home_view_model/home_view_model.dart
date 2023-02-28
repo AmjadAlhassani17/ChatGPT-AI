@@ -10,7 +10,6 @@ import '../../model/chat_model.dart';
 
 class HomeViewModel extends GetxController {
   // GlobalKey<ScaffoldState> homeScaffoleKey = GlobalKey<ScaffoldState>();
-  ScrollController scrollControllerList = ScrollController();
   final tdTextAddingAd = TextEditingController();
   bool isTyping = false;
   bool isLike = false;
@@ -85,11 +84,6 @@ class HomeViewModel extends GetxController {
         );
       }
       isTyping = false;
-      scrollControllerList.animateTo(
-      scrollControllerList.position.maxScrollExtent,
-      duration: const Duration(microseconds: 1500),
-      curve: Curves.easeOut,
-    );
       update();
       return chatModel;
     } catch (e) {

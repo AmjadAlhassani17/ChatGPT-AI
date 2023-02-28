@@ -217,7 +217,6 @@ class _ChatHomeScreenState extends State<ChatHomeScreen> {
                 logic.chatScreenModel.isNotEmpty
                     ? Flexible(
                         child: ListView.builder(
-                          controller: logic.scrollControllerList,
                           physics: const BouncingScrollPhysics(),
                           itemCount: logic.chatScreenModel.length,
                           itemBuilder: (context, index) {
